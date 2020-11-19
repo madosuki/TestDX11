@@ -47,7 +47,7 @@ void DrawerClassNameSpace::Drawer::DrawTriAngle(D3DClass* instance)
 	instance->SetVertexShader(vertex_shader.Get());
 	instance->SetPixelShader(pixel_shader.Get());
 	instance->SetInputLayout(input_layout.Get());
-	instance->SetVertexBuffer(vb.Get(), sizeof(ID3D11VertexShader));
+	instance->SetVertexBuffer(vb.Get(), sizeof(DrawerClassNameSpace::Vertex));
 	instance->SetIndexBuffer(ib.Get());
 	instance->SetRasterizer();
 

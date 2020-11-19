@@ -226,7 +226,7 @@ void D3DClass::SetRasterizer(ID3D11RasterizerState* state)
 	if (state == nullptr)
 	{
 		D3D11_RASTERIZER_DESC desc = {};
-		desc.CullMode = D3D11_CULL_BACK;
+		desc.CullMode = D3D11_CULL_FRONT;
 		desc.FillMode = D3D11_FILL_SOLID;
 		desc.FrontCounterClockwise = false;
 		// desc.ScissorEnable = false;
@@ -247,6 +247,8 @@ void D3DClass::SetRasterizer(ID3D11RasterizerState* state)
 void D3DClass::SetTexture2D(UINT register_number, ID3D11ShaderResourceView* shader_resouce_view)
 {
 	context_ptr->PSSetShaderResources(register_number, 1, &shader_resouce_view);
+
+
 }
 
 void D3DClass::DrawBegin()
