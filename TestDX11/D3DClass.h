@@ -72,14 +72,13 @@ public:
 	void SetVertexBuffer(ID3D11Buffer* vertex_buffer, UINT buffer_size);
 	void SetIndexBuffer(ID3D11Buffer* index_buffer);
 
-	void SetRasterizer(ID3D11RasterizerState* state);
+	void SetRasterizer(ID3D11RasterizerState* state = nullptr);
 
 	void SetTexture2D(UINT register_number, ID3D11ShaderResourceView* texture);
 
 	void DrawBegin();
 	void DrawEnd();
 	void DrawIndexed(UINT vertex_number);
-
 
 	template<class x>
 	ID3D11Buffer* CreateVertexBuffer(x* VertexData, UINT VertexNum)

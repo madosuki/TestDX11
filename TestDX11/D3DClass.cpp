@@ -223,17 +223,25 @@ void D3DClass::SetIndexBuffer(ID3D11Buffer* index_buffer)
 
 void D3DClass::SetRasterizer(ID3D11RasterizerState* state)
 {
-	D3D11_RASTERIZER_DESC desc = {};
-	desc.CullMode = D3D11_CULL_FRONT;
-	desc.FillMode = D3D11_FILL_SOLID;
-	desc.FrontCounterClockwise = true;
-	desc.ScissorEnable = false;
-	desc.MultisampleEnable = true;
+	if (state == nullptr)
+	{
+		D3D11_RASTERIZER_DESC desc = {};
+		desc.CullMode = D3D11_CULL_BACK;
+		desc.FillMode = D3D11_FILL_SOLID;
+		desc.FrontCounterClockwise = false;
+		// desc.ScissorEnable = false;
+		desc.MultisampleEnable = true;
 
-	ID3D11RasterizerState* tmp_state;
-	auto hr = device_ptr->CreateRasterizerState(&desc, &tmp_state);
 
-	context_ptr->RSSetState(tmp_state);
+		ID3D11RasterizerState* tmp_state;
+		auto hr = device_ptr->CreateRasterizerState(&desc, &tmp_state);
+
+		context_ptr->RSSetState(tmp_state);
+	}
+	else
+	{
+		context_ptr->RSSetState(state);
+	}
 }
 
 void D3DClass::SetTexture2D(UINT register_number, ID3D11ShaderResourceView* shader_resouce_view)
@@ -264,3 +272,4 @@ void D3DClass::DrawIndexed(UINT vertex_number)
 {
 	context_ptr->DrawIndexed(vertex_number, 0, 0);
 }
+
