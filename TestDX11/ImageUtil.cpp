@@ -11,9 +11,8 @@ ImageUtil::ImageObject::ImageObject()
 ImageUtil::ImageObject::~ImageObject()
 {
 	if (bytes != nullptr)
-	{
 		delete bytes;
-	}
+
 }
 
 void ImageUtil::ImageObject::SetImageFromFile(const std::wstring& filename)
@@ -58,7 +57,7 @@ void ImageUtil::ImageObject::SetImageFromFile(const std::wstring& filename)
 	hr = frame->GetSize(&puiWidth, &puiHeight);
 
 	UINT buffer_size = puiWidth * puiHeight * 3;
-    bytes = new BYTE[buffer_size];
+	bytes = new BYTE[buffer_size];
 
 	if (bytes == nullptr)
 		return;

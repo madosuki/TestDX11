@@ -2,6 +2,9 @@
 
 #include <d3d11.h>
 #include <DirectXMath.h>
+#include <wrl/client.h>
+
+#include "ImageUtil.h"
 
 struct SecondVertex
 {
@@ -13,13 +16,18 @@ class TextureObject
 {
 private:
 
-	ID3D11Texture2D* texture;
+	Microsoft::WRL::ComPtr<ID3D11Texture2D> texture;
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> resource_view;
+	Microsoft::WRL::ComPtr<ID3D11SamplerState> sampler_state;
 
-	void CreateTexture();
+	void Init(Microsoft::WRL::ComPtr<ID3D11Device> &device, std::shared_ptr<ImageUtil::ImageObject> &image_object);
+	void SetShader(Microsoft::WRL::ComPtr<ID3D11DeviceContext>& device_context);
 
 public:
 	TextureObject();
 	~TextureObject();
-
+	void SetTexture(Microsoft::WRL::ComPtr<ID3D11Device>& device,
+		std::shared_ptr<ImageUtil::ImageObject>& image_object,
+		Microsoft::WRL::ComPtr<ID3D11DeviceContext>& device_context);
 };
 
