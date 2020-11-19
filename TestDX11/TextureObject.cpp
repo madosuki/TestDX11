@@ -6,13 +6,15 @@ TextureObject::TextureObject()
 }
 TextureObject::~TextureObject() {}
 
-void TextureObject::SetTexture(Microsoft::WRL::ComPtr<ID3D11Device>& device, std::shared_ptr<ImageUtil::ImageObject>& image_object, Microsoft::WRL::ComPtr<ID3D11DeviceContext>& device_context)
+void TextureObject::SetTexture(const Microsoft::WRL::ComPtr<ID3D11Device>& device, 
+	const std::shared_ptr<ImageUtil::ImageObject>& image_object,
+	const Microsoft::WRL::ComPtr<ID3D11DeviceContext>& device_context)
 {
 	Init(device, image_object);
 	SetShader(device_context);
 }
 
-void TextureObject::Init(Microsoft::WRL::ComPtr<ID3D11Device>& device, std::shared_ptr<ImageUtil::ImageObject> &image_object)
+void TextureObject::Init(const Microsoft::WRL::ComPtr<ID3D11Device>& device, const std::shared_ptr<ImageUtil::ImageObject> &image_object)
 {
 	D3D11_TEXTURE2D_DESC desc;
 	desc.Width = image_object->Width();
@@ -31,6 +33,9 @@ void TextureObject::Init(Microsoft::WRL::ComPtr<ID3D11Device>& device, std::shar
 	surface_data.pSysMem = image_object->Bytes();
 	surface_data.SysMemPitch = image_object->Width() * image_object->PixelLength();
 	surface_data.SysMemSlicePitch = image_object->PixelLength();
+
+	if (device == nullptr)
+		return;
 
 	auto hr = device->CreateTexture2D(&desc, &surface_data, &texture);
 	if (FAILED(hr))
@@ -58,7 +63,7 @@ void TextureObject::Init(Microsoft::WRL::ComPtr<ID3D11Device>& device, std::shar
 
 }
 
-void TextureObject::SetShader(Microsoft::WRL::ComPtr<ID3D11DeviceContext>& device_context)
+void TextureObject::SetShader(const Microsoft::WRL::ComPtr<ID3D11DeviceContext>& device_context)
 {
 	device_context->PSSetShaderResources(0, 1, resource_view.GetAddressOf());
 }

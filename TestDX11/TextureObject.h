@@ -17,17 +17,19 @@ class TextureObject
 private:
 
 	Microsoft::WRL::ComPtr<ID3D11Texture2D> texture;
+	// ID3D11Texture2D* texture;
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> resource_view;
 	Microsoft::WRL::ComPtr<ID3D11SamplerState> sampler_state;
 
-	void Init(Microsoft::WRL::ComPtr<ID3D11Device> &device, std::shared_ptr<ImageUtil::ImageObject> &image_object);
-	void SetShader(Microsoft::WRL::ComPtr<ID3D11DeviceContext>& device_context);
+	void Init(const Microsoft::WRL::ComPtr<ID3D11Device> &device, const std::shared_ptr<ImageUtil::ImageObject> &image_object);
+	void SetShader(const Microsoft::WRL::ComPtr<ID3D11DeviceContext>& device_context);
 
 public:
 	TextureObject();
 	~TextureObject();
-	void SetTexture(Microsoft::WRL::ComPtr<ID3D11Device>& device,
-		std::shared_ptr<ImageUtil::ImageObject>& image_object,
-		Microsoft::WRL::ComPtr<ID3D11DeviceContext>& device_context);
+	void SetTexture(const Microsoft::WRL::ComPtr<ID3D11Device>& device,
+		const std::shared_ptr<ImageUtil::ImageObject>& image_object,
+		const Microsoft::WRL::ComPtr<ID3D11DeviceContext>& device_context);
+
 };
 

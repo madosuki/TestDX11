@@ -27,7 +27,10 @@ void ImageUtil::ImageObject::SetImageFromFile(const std::wstring& filename)
 	);
 
 	if (FAILED(hr))
+	{
+		OutputDebugString(L"Failed CoCreateInstance\r\n");
 		return;
+	}
 
 	Microsoft::WRL::ComPtr<IWICBitmapDecoder> decoder = nullptr;
 	hr = factory->CreateDecoderFromFilename(
@@ -39,19 +42,29 @@ void ImageUtil::ImageObject::SetImageFromFile(const std::wstring& filename)
 	);
 
 	if (FAILED(hr))
+	{
+		OutputDebugStringW((filename + L"\r\n").c_str());
+		OutputDebugStringW(L"Failed CreateDecodeFromFilename\r\n");
 		return;
+	}
 
 	Microsoft::WRL::ComPtr<IWICBitmapFrameDecode> frame = nullptr;
 	hr = decoder->GetFrame(0, &frame);
 
 	if (FAILED(hr))
+	{
+		OutputDebugStringW(L"Failed GetFrame\r\n");
 		return;
+	}
 
 	WICPixelFormatGUID guid_pixel_format;
 
 	hr = frame->GetPixelFormat(&guid_pixel_format);
 	if (FAILED(hr))
+	{
+		OutputDebugStringW(L"Failed GetPixelFormat");
 		return;
+	}
 
 	UINT puiWidth, puiHeight;
 	hr = frame->GetSize(&puiWidth, &puiHeight);
@@ -60,7 +73,10 @@ void ImageUtil::ImageObject::SetImageFromFile(const std::wstring& filename)
 	bytes = new BYTE[buffer_size];
 
 	if (bytes == nullptr)
+	{
+		OutputDebugStringW(L"Failed init bytes\r\n");
 		return;
+	}
 
 	hr = frame->CopyPixels(
 		NULL,
@@ -68,6 +84,12 @@ void ImageUtil::ImageObject::SetImageFromFile(const std::wstring& filename)
 		buffer_size,
 		bytes
 	);
+
+	if (FAILED(hr))
+	{
+		OutputDebugStringW(L"Failed CopyPixels");
+		return;
+	}
 
 	this->width = puiWidth;
 	this->height = puiHeight;

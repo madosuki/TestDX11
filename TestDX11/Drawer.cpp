@@ -43,6 +43,19 @@ void DrawerClassNameSpace::Drawer::DrawTriAngle(D3DClass* instance)
 	// std::reverse(idxs.begin(), idxs.end());
 	ib.Attach(instance->CreateIndexBuffer(idxs.data(), static_cast<UINT>(idxs.size())));
 
+	auto image_object = std::make_shared<ImageUtil::ImageObject>();
+	image_object->SetImageFromFile(L"C:\\Users\\madosuki\\Pictures\\test.jpg");
+	OutputDebugString((L"size: " + std::to_wstring(image_object->PixelLength()) + L"\r\n").c_str());
+
+	
+	auto texture_object = TextureObject();
+	auto device = instance->DevicePtr();
+	auto device_context = instance->DeviceContextPtr();
+	texture_object.SetTexture(device, image_object, device_context);
+	
+	
+
+
 	instance->DrawBegin();
 	instance->SetVertexShader(vertex_shader.Get());
 	instance->SetPixelShader(pixel_shader.Get());
@@ -50,6 +63,8 @@ void DrawerClassNameSpace::Drawer::DrawTriAngle(D3DClass* instance)
 	instance->SetVertexBuffer(vb.Get(), sizeof(DrawerClassNameSpace::Vertex));
 	instance->SetIndexBuffer(ib.Get());
 	instance->SetRasterizer();
+
+
 
 	instance->DrawIndexed(static_cast<UINT>(idxs.size()));
 

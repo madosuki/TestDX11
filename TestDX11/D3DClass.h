@@ -82,6 +82,10 @@ public:
 	void DrawEnd();
 	void DrawIndexed(UINT vertex_number);
 
+	Microsoft::WRL::ComPtr<ID3D11Device> DevicePtr() { return this->device_ptr; }
+	Microsoft::WRL::ComPtr<ID3D11DeviceContext> DeviceContextPtr() { return this->context_ptr; }
+
+
 	template<class x>
 	ID3D11Buffer* CreateVertexBuffer(x* VertexData, UINT VertexNum)
 	{

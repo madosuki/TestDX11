@@ -1,6 +1,7 @@
 #pragma once
 
 #include "D3DClass.h"
+#include "TextureObject.h"
 
 namespace DrawerClassNameSpace
 {
