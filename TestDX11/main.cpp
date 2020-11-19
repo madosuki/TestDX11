@@ -19,6 +19,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPreveInstance, LPSTR lpCmdLin
 {
 	// MessageBox(NULL, TEXT("Hello"), TEXT("Message Window"), MB_OK);
 
+	auto co_result = CoInitialize(NULL);
+
 	WNDCLASSEX wc = { sizeof(WNDCLASSEX), CS_CLASSDC };
 
 	wc.hInstance = hInstance;

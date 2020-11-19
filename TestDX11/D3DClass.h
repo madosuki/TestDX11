@@ -12,11 +12,11 @@
 class D3DClass
 {
 private:
-	ID3D11Device* device_ptr;
-	ID3D11DeviceContext* context_ptr;
-	IDXGISwapChain* swapchain_ptr;
-	ID3D11Texture2D* texture;
-	ID3D11RenderTargetView* render_target_view;
+	Microsoft::WRL::ComPtr<ID3D11Device> device_ptr;
+	Microsoft::WRL::ComPtr<ID3D11DeviceContext> context_ptr;
+	Microsoft::WRL::ComPtr<IDXGISwapChain> swapchain_ptr;
+	Microsoft::WRL::ComPtr<ID3D11Texture2D> texture;
+	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> render_target_view;
 	D3D11_VIEWPORT viewport;
 
 	HWND hwnd;
@@ -37,6 +37,7 @@ public:
 
 	~D3DClass() {}
 
+	/*
 	void DevicePtr(ID3D11Device* device)
 	{
 		this->device_ptr = device;
@@ -56,6 +57,7 @@ public:
 	{
 		return this->context_ptr;
 	}
+	*/
 
 	HRESULT Init(HWND hWnd);
 

@@ -104,7 +104,7 @@ HRESULT D3DClass::Init(HWND hWnd)
 	if (FAILED(hr))
 		return hr;
 
-	hr = this->device_ptr->CreateRenderTargetView(texture, NULL, &this->render_target_view);
+	hr = this->device_ptr->CreateRenderTargetView(texture.Get(), NULL, &this->render_target_view);
 	if (FAILED(hr))
 		return hr;
 
@@ -258,10 +258,10 @@ void D3DClass::DrawBegin()
 	// red, green, blue, alpha
 	float clear_color[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
 
-	context_ptr->ClearRenderTargetView(render_target_view, clear_color);
+	context_ptr->ClearRenderTargetView(render_target_view.Get(), clear_color);
 	context_ptr->RSSetViewports(1, &viewport);
 
-	ID3D11RenderTargetView* rtv[1] = { render_target_view };
+	ID3D11RenderTargetView* rtv[1] = { render_target_view.Get() };
 	context_ptr->OMSetRenderTargets(1, rtv, nullptr);
 }
 
