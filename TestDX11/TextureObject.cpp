@@ -31,7 +31,7 @@ void TextureObject::Init(const Microsoft::WRL::ComPtr<ID3D11Device>& device, con
 
 	D3D11_SUBRESOURCE_DATA surface_data;
 	surface_data.pSysMem = image_object->Bytes();
-	surface_data.SysMemPitch = image_object->Width() * image_object->PixelLength();
+	surface_data.SysMemPitch = image_object->Width() * 4;
 	surface_data.SysMemSlicePitch = image_object->PixelLength();
 
 	if (device == nullptr)

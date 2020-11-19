@@ -53,18 +53,16 @@ void DrawerClassNameSpace::Drawer::DrawTriAngle(D3DClass* instance)
 	auto device_context = instance->DeviceContextPtr();
 	texture_object.SetTexture(device, image_object, device_context);
 	
-	
-
-
 	instance->DrawBegin();
+
+	
 	instance->SetVertexShader(vertex_shader.Get());
 	instance->SetPixelShader(pixel_shader.Get());
 	instance->SetInputLayout(input_layout.Get());
 	instance->SetVertexBuffer(vb.Get(), sizeof(DrawerClassNameSpace::Vertex));
 	instance->SetIndexBuffer(ib.Get());
 	instance->SetRasterizer();
-
-
+	
 
 	instance->DrawIndexed(static_cast<UINT>(idxs.size()));
 

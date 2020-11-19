@@ -80,7 +80,7 @@ void ImageUtil::ImageObject::SetImageFromFile(const std::wstring& filename)
 
 	hr = frame->CopyPixels(
 		NULL,
-		puiWidth * 3,
+		puiWidth * 4,
 		buffer_size,
 		bytes
 	);
@@ -94,5 +94,7 @@ void ImageUtil::ImageObject::SetImageFromFile(const std::wstring& filename)
 	this->width = puiWidth;
 	this->height = puiHeight;
 	this->pixel_bytes_length = buffer_size;
+
+
 
 }
