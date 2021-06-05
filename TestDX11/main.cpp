@@ -15,7 +15,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPreveInstance, LPSTR lpCmdLine, int nCmdShow)
+int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPreveInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
 	// MessageBox(NULL, TEXT("Hello"), TEXT("Message Window"), MB_OK);
 
