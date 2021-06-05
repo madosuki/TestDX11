@@ -18,12 +18,14 @@ HRESULT D3DClass::Init(HWND hWnd)
 	uint32_t number_modes = 0;
 	IDXGIAdapter* adapter = nullptr;
 
-	for (int i = 0; i < 100; i++)
+	int adapter_count = 0;
+	while (true)
 	{
 		IDXGIAdapter* tmp_adapter;
-		hr = factory->EnumAdapters(i, &tmp_adapter);
+		hr = factory->EnumAdapters(adapter_count, &tmp_adapter);
 		if (FAILED(hr))
 			break;
+		++adapter_count;
 
 		hr = tmp_adapter->GetDesc(&adapter_desc);
 
