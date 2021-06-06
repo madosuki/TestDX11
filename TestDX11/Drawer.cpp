@@ -12,7 +12,14 @@ DrawerClassNameSpace::Drawer::~Drawer()
 
 void DrawerClassNameSpace::Drawer::DrawTriAngle(D3DClass* instance)
 {
-	std::string shader_path_prefix = "C:\\Users\\madosuki\\Documents\\doc_files\\vs_projects\\TestDX11\\TestDX11\\";
+	auto c = Utils();
+	auto f = c.GetUserDirectory();
+	if (!f.has_value())
+	{
+		OutputDebugString(L"Filed look up appdata folder.");
+		return;
+	}
+	auto shader_path_prefix = f.value() + "\\TestDX11\\";
 
 	Microsoft::WRL::ComPtr<ID3D11VertexShader> vertex_shader;
 	vertex_shader.Attach(instance->CreateVertexShader(shader_path_prefix + "VertexShader.hlsl", "main"));

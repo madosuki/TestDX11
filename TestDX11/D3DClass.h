@@ -9,6 +9,8 @@
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
 
+#include "Utils.h"
+
 class D3DClass
 {
 private:

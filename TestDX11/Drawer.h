@@ -2,6 +2,7 @@
 
 #include "D3DClass.h"
 #include "TextureObject.h"
+#include "Utils.h"
 
 namespace DrawerClassNameSpace
 {
