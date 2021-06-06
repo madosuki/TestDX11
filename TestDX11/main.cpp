@@ -57,8 +57,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPreveInstance, 
 	else
 		OutputDebugStringW(L"Success Init\r\n");
 
-	auto drawer = DrawerClassNameSpace::Drawer();
-	drawer.DrawTriAngle(&instance);
+	Utils utils = Utils();
+	auto drawer = DrawerClassNameSpace::Drawer(&utils);
+	drawer.DrawTriAngle(&instance, &utils);
 
 
 	MSG msg = {0};

@@ -48,6 +48,7 @@ HRESULT D3DClass::Init(HWND hWnd)
 		OutputDebugString(video_card_memory_wstring.c_str());
 
 		hr = tmp_adapter->EnumOutputs(0, &adapter_output);
+
 		if (FAILED(hr))
 			continue;
 

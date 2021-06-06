@@ -12,5 +12,6 @@ public:
 	~Utils();
 
 	std::optional<std::string> GetUserDirectory();
+	std::wstring StringToWstring(const std::string& target);
 };
 

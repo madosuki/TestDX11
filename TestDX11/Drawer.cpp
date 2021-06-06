@@ -1,8 +1,18 @@
 #include "Drawer.h"
 
-DrawerClassNameSpace::Drawer::Drawer()
+DrawerClassNameSpace::Drawer::Drawer(Utils* utils)
 {
+	auto f = utils->GetUserDirectory();
+	if (!f.has_value())
+	{
+		OutputDebugString(L"Filed look up appdata folder.");
+		return;
+	}
+	appDataPath = f.value() + "\\TestDX11\\";
+	shaderPathPrefix = appDataPath;
 
+	shaderPathMap.insert(std::make_pair("VertexShaderSample", shaderPathPrefix + "VertexShader.hlsl"));
+	shaderPathMap.insert(std::make_pair("PixelShaderSample", shaderPathPrefix + "PixelShader.hlsl"));
 }
 
 DrawerClassNameSpace::Drawer::~Drawer()
@@ -10,29 +20,21 @@ DrawerClassNameSpace::Drawer::~Drawer()
 
 }
 
-void DrawerClassNameSpace::Drawer::DrawTriAngle(D3DClass* instance)
+void DrawerClassNameSpace::Drawer::DrawTriAngle(D3DClass* instance, Utils* utils)
 {
-	auto c = Utils();
-	auto f = c.GetUserDirectory();
-	if (!f.has_value())
-	{
-		OutputDebugString(L"Filed look up appdata folder.");
-		return;
-	}
-	auto shader_path_prefix = f.value() + "\\TestDX11\\";
 
 	Microsoft::WRL::ComPtr<ID3D11VertexShader> vertex_shader;
-	vertex_shader.Attach(instance->CreateVertexShader(shader_path_prefix + "VertexShader.hlsl", "main"));
+	vertex_shader.Attach(instance->CreateVertexShader(shaderPathMap["VertexShaderSample"], "main"));
 
 	Microsoft::WRL::ComPtr<ID3D11PixelShader> pixel_shader;
-	pixel_shader.Attach(instance->CreatePixelShader(shader_path_prefix + "PixelShader.hlsl", "main"));
+	pixel_shader.Attach(instance->CreatePixelShader(shaderPathMap["PixelShaderSample"], "main"));
 
 	Microsoft::WRL::ComPtr<ID3D11InputLayout> input_layout;
 	D3D11_INPUT_ELEMENT_DESC elements[] = {
 		{"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
 		{"TEXCOORD", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0}
 	};
-	input_layout.Attach(instance->CreateInputLayout(elements, 2, shader_path_prefix + "VertexShader.hlsl", "main"));
+	input_layout.Attach(instance->CreateInputLayout(elements, 2, shaderPathMap["VertexShaderSample"], "main"));
 
 
 	std::vector<DrawerClassNameSpace::Vertex> vertexs =
@@ -50,8 +52,12 @@ void DrawerClassNameSpace::Drawer::DrawTriAngle(D3DClass* instance)
 	// std::reverse(idxs.begin(), idxs.end());
 	ib.Attach(instance->CreateIndexBuffer(idxs.data(), static_cast<UINT>(idxs.size())));
 
+
+	auto imagePath = utils->StringToWstring(appDataPath);
+
 	auto image_object = std::make_shared<ImageUtil::ImageObject>();
-	image_object->SetImageFromFile(L"C:\\Users\\madosuki\\Pictures\\test.jpg");
+	image_object->SetImageFromFile(imagePath + L"test.jpg");
+
 	OutputDebugString((L"size: " + std::to_wstring(image_object->PixelLength()) + L"\r\n").c_str());
 
 	

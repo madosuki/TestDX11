@@ -1,5 +1,8 @@
 #pragma once
 
+
+#include <map>
+
 #include "D3DClass.h"
 #include "TextureObject.h"
 #include "Utils.h"
@@ -15,10 +18,15 @@ namespace DrawerClassNameSpace
 	class Drawer
 	{
 	public:
-		Drawer();
+		Drawer(Utils* utils);
 		~Drawer();
 
-		void DrawTriAngle(D3DClass* instance);
+		void DrawTriAngle(D3DClass* instance, Utils* utils);
+
+	private:
+		std::string appDataPath;
+		std::string shaderPathPrefix;
+		std::map<std::string, std::string> shaderPathMap;
 	};
 
 }
