@@ -34,3 +34,23 @@ std::wstring Utils::StringToWstring(const std::string& target)
 
 	return std::move(result);
 }
+
+std::optional<std::string> Utils::WstringToString(const std::wstring& target, const UINT& codepage)
+{
+	int bufSize = WideCharToMultiByte(codepage, 0, target.c_str(), -1, (char*)NULL, 0, NULL, NULL);
+	char* buf = new char[bufSize];
+	if (buf == nullptr) {
+		return std::nullopt;
+	}
+
+	int check = WideCharToMultiByte(codepage, 0, target.c_str(), -1, buf, bufSize, NULL, NULL);
+
+	if(check == 0) {
+		return std::nullopt;
+	}
+
+	auto result = std::string(buf);
+	delete[] buf;
+
+	return result;
+}

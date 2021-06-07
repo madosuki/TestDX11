@@ -78,6 +78,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <LibraryPath>C:\Users\madosuki\vcpkg\installed\x64-windows\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -117,11 +118,12 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>C:\Users\madosuki\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d11.lib;dxgi.lib;d3dcompiler.lib;windowscodecs.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;d3dcompiler.lib;windowscodecs.lib;turbojpeg.lib;jpeg.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -143,7 +145,7 @@
   <ItemGroup>
     <ClCompile Include="D3DClass.cpp" />
     <ClCompile Include="Drawer.cpp" />
-    <ClCompile Include="ImageUtil.cpp" />
+    <ClCompile Include="imageUtil.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TextureObject.cpp" />
     <ClCompile Include="Utils.cpp" />
@@ -167,7 +169,7 @@
   <ItemGroup>
     <ClInclude Include="D3DClass.h" />
     <ClInclude Include="Drawer.h" />
-    <ClInclude Include="ImageUtil.h" />
+    <ClInclude Include="imageUtil.h" />
     <ClInclude Include="TextureObject.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>

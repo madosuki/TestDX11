@@ -4,8 +4,14 @@
 #include <string>
 #include <vector>
 #include <wrl/client.h>
-
 #include <wincodec.h>
+
+#include <turbojpeg.h>
+
+#include <sys/types.h>
+#include <sys/stat.h>
+
+#include "Utils.h"
 
 namespace ImageUtil
 {
@@ -17,6 +23,8 @@ namespace ImageUtil
 		UINT height;
 		UINT pixel_bytes_length;
 	    BYTE* bytes;
+
+		void LoadJpegFile(const std::wstring& filename);
 
 	public:
 		ImageObject();

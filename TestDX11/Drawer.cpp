@@ -56,9 +56,9 @@ void DrawerClassNameSpace::Drawer::DrawTriAngle(D3DClass* instance, Utils* utils
 	auto imagePath = utils->StringToWstring(appDataPath);
 
 	auto image_object = std::make_shared<ImageUtil::ImageObject>();
-	image_object->SetImageFromFile(imagePath + L"test.jpg");
+	image_object->SetImageFromFile(imagePath + L"test.bmp");
 
-	OutputDebugString((L"size: " + std::to_wstring(image_object->PixelLength()) + L"\r\n").c_str());
+	OutputDebugString((L"\r\nsize: " + std::to_wstring(image_object->PixelLength()) + L"\r\n").c_str());
 
 	
 	auto texture_object = TextureObject();
