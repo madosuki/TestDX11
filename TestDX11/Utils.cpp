@@ -19,7 +19,7 @@ std::optional<std::string> Utils::GetUserDirectory()
 	auto result = std::string(buf);
 	delete[] buf;
 
-	return std::move(result);
+	return result;
 }
 
 std::wstring Utils::StringToWstring(const std::string& target)
@@ -32,7 +32,7 @@ std::wstring Utils::StringToWstring(const std::string& target)
 	auto result = std::wstring(buf);
 	delete[] buf;
 
-	return std::move(result);
+	return result;
 }
 
 std::optional<std::string> Utils::WstringToString(const std::wstring& target, const UINT& codepage)

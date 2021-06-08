@@ -6,6 +6,44 @@ TextureObject::TextureObject()
 }
 TextureObject::~TextureObject() {}
 
+/*
+void TextureObject::SetShaderResourceView(const Microsoft::WRL::ComPtr<ID3D11Device>& device)
+{
+	D3D11_TEXTURE2D_DESC desc;
+	texture.Get()->GetDesc(&desc);
+
+	D3D11_SHADER_RESOURCE_VIEW_DESC viewDesc;
+	ZeroMemory(&viewDesc, sizeof(viewDesc));
+	viewDesc.Format = desc.Format;
+	viewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+	viewDesc.Texture2D.MostDetailedMip = 0;
+	viewDesc.Texture2D.MipLevels = desc.MipLevels;
+
+	ID3D11ShaderResourceView* view = nullptr;
+	auto hr = device.Get()->CreateShaderResourceView(texture.Get(), &viewDesc, &view);
+	if (FAILED(hr))
+	{
+		OutputDebugStringW(L"failed create shader resource view\r\n");
+	}
+
+	resource_view.Attach(view);
+}
+*/
+
+
+
+
+ID3D11ShaderResourceView* TextureObject::GetResourceView()
+{
+	return resource_view.Get();
+}
+
+ID3D11Texture2D* TextureObject::GetTexture()
+{
+	return texture.Get();
+}
+
+
 void TextureObject::SetTexture(const Microsoft::WRL::ComPtr<ID3D11Device>& device, 
 	const std::shared_ptr<ImageUtil::ImageObject>& image_object,
 	const Microsoft::WRL::ComPtr<ID3D11DeviceContext>& device_context)

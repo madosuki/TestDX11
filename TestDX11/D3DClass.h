@@ -82,19 +82,18 @@ public:
 
 	void DrawBegin();
 	void DrawEnd();
-	void DrawIndexed(UINT vertex_number);
+	void DrawIndexed(UINT vertex_number, UINT index_count, UINT base_vertex_locatio);
 
 	Microsoft::WRL::ComPtr<ID3D11Device> DevicePtr() { return this->device_ptr; }
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext> DeviceContextPtr() { return this->context_ptr; }
 
 
-	template<class x>
-	ID3D11Buffer* CreateVertexBuffer(x* VertexData, UINT VertexNum)
+	template<class T>
+	ID3D11Buffer* CreateVertexBuffer(T* VertexData, UINT VertexNum)
 	{
-		//頂点バッファ作成
 		D3D11_BUFFER_DESC hBufferDesc;
 		ZeroMemory(&hBufferDesc, sizeof(hBufferDesc));
-		hBufferDesc.ByteWidth = sizeof(x) * VertexNum;
+		hBufferDesc.ByteWidth = sizeof(T) * VertexNum;
 		hBufferDesc.Usage = D3D11_USAGE_DEFAULT;
 		hBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 		hBufferDesc.CPUAccessFlags = 0;
@@ -107,11 +106,12 @@ public:
 		if (FAILED(device_ptr->CreateBuffer(&hBufferDesc, &hSubResourceData, &hpBuffer))) {
 			return nullptr;
 		}
+
 		return hpBuffer;
 	}
+
 	ID3D11Buffer* CreateIndexBuffer(UINT* Index, UINT IndexNum)
 	{
-		//インデックスバッファ作成
 		D3D11_BUFFER_DESC hBufferDesc;
 		ZeroMemory(&hBufferDesc, sizeof(hBufferDesc));
 		hBufferDesc.ByteWidth = sizeof(UINT) * IndexNum;

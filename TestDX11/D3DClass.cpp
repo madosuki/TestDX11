@@ -273,8 +273,8 @@ void D3DClass::DrawEnd()
 	swapchain_ptr->Present(0, 0);
 }
 
-void D3DClass::DrawIndexed(UINT vertex_number)
+void D3DClass::DrawIndexed(UINT vertex_number, UINT index_count, UINT base_vertex_location)
 {
-	context_ptr->DrawIndexed(vertex_number, 0, 0);
+	context_ptr->DrawIndexed(vertex_number, index_count, base_vertex_location);
 }
 

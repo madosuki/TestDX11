@@ -44,13 +44,13 @@ void DrawerClassNameSpace::Drawer::DrawTriAngle(D3DClass* instance, Utils* utils
 		{ DirectX::XMFLOAT3(0.5f, 0.5f,0), DirectX::XMFLOAT4(0,0,1,1)},
 		{ DirectX::XMFLOAT3(-0.5f, 0.5f,0), DirectX::XMFLOAT4(0,0,0,1)}
 	};
-	Microsoft::WRL::ComPtr<ID3D11Buffer> vb;
-	vb.Attach(instance->CreateVertexBuffer(vertexs.data(), static_cast<UINT>(vertexs.size())));
+	Microsoft::WRL::ComPtr<ID3D11Buffer> vertexBuffer;
+	vertexBuffer.Attach(instance->CreateVertexBuffer(vertexs.data(), static_cast<UINT>(vertexs.size())));
 
-	std::vector<UINT> idxs = { 0, 1, 2, 0, 2, 3 };
-	Microsoft::WRL::ComPtr<ID3D11Buffer> ib;
+	std::vector<UINT> indexShader = { 0, 1, 2, 0, 2, 3 };
+	Microsoft::WRL::ComPtr<ID3D11Buffer> indexBuffer;
 	// std::reverse(idxs.begin(), idxs.end());
-	ib.Attach(instance->CreateIndexBuffer(idxs.data(), static_cast<UINT>(idxs.size())));
+	indexBuffer.Attach(instance->CreateIndexBuffer(indexShader.data(), static_cast<UINT>(indexShader.size())));
 
 
 	auto imagePath = utils->StringToWstring(appDataPath);
@@ -64,20 +64,25 @@ void DrawerClassNameSpace::Drawer::DrawTriAngle(D3DClass* instance, Utils* utils
 	auto texture_object = TextureObject();
 	auto device = instance->DevicePtr();
 	auto device_context = instance->DeviceContextPtr();
-	texture_object.SetTexture(device, image_object, device_context);
 	
-	instance->DrawBegin();
 
+	instance->DrawBegin();
+	
 	
 	instance->SetVertexShader(vertex_shader.Get());
 	instance->SetPixelShader(pixel_shader.Get());
 	instance->SetInputLayout(input_layout.Get());
-	instance->SetVertexBuffer(vb.Get(), sizeof(DrawerClassNameSpace::Vertex));
-	instance->SetIndexBuffer(ib.Get());
+	instance->SetVertexBuffer(vertexBuffer.Get(), sizeof(DrawerClassNameSpace::Vertex));
+	instance->SetIndexBuffer(indexBuffer.Get());
 	instance->SetRasterizer();
-	
 
-	instance->DrawIndexed(static_cast<UINT>(idxs.size()));
+	// texture_object.SetTexture(device, image_object, device_context);
+	instance->SetTexture2D(1, texture_object.GetResourceView());
+
+	instance->DrawIndexed(static_cast<UINT>(indexShader.size()),
+		0, 0);
+	instance->DrawIndexed(6, 1, 0);
+	// instance->DrawIndexed(static_cast<UINT>(6));
 
 	instance->DrawEnd();
 }

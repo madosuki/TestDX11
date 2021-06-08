@@ -27,6 +27,9 @@ private:
 public:
 	TextureObject();
 	~TextureObject();
+
+	ID3D11ShaderResourceView* GetResourceView();
+	ID3D11Texture2D* GetTexture();
 	void SetTexture(const Microsoft::WRL::ComPtr<ID3D11Device>& device,
 		const std::shared_ptr<ImageUtil::ImageObject>& image_object,
 		const Microsoft::WRL::ComPtr<ID3D11DeviceContext>& device_context);
